@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ─────────────────────────────────────────────────────────────
+         PROJET D'EXAMEN API SOAP — GROUPE 1 : GESTION DE TACHES
+         Systeme legacy "legacy-hr-system" : serveur SOAP (XML/WSDL)
+         Consomme ensuite par l'application Node.js / MongoDB.
+         ───────────────────────────────────────────────────────────── -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.upg</groupId>
+    <artifactId>legacy-hr-system</artifactId>
+    <version>1.0.0</version>
+    <name>legacy-hr-system</name>
+    <description>Systeme RH legacy exposant un service SOAP pour la synchronisation des employes et de leurs competences</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- Stack IMPOSEE par le cahier des charges : Web Services (SOAP) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <!-- Stack IMPOSEE : acces base relationnelle via Spring Data JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Base de donnees relationnelle de developpement (le sujet laisse le choix) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Librairie WSDL : indispensable pour que DefaultWsdl11Definition
+             puisse generer le document WSDL. Spring-WS la declare en
+             "optional", elle n'est donc pas tiree par
+             spring-boot-starter-web-services : sans elle le demarrage echoue
+             sur NoClassDefFoundError: javax/wsdl/extensions/ExtensibilityElement.
+             Note : wsdl4j expose bien le package javax.wsdl.* . -->
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+        <!-- Generation des classes Java a partir du XSD (jaxb2-maven-plugin) -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Generation du binding JAXB a partir de src/main/resources/schemas/hr-service.xsd -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources-from-xsd</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/schemas</source>
+                    </sources>
+                    <outputDirectory>${project.build.directory}/generated-sources/xjc</outputDirectory>
+                    <packageName>com.upg.legacyhr.soap.generated</packageName>
+                    <clearOutputDir>true</clearOutputDir>
+                    <failOnNoSchemas>true</failOnNoSchemas>
+                    <removeOldOutput>true</removeOldOutput>
+                    <strict>true</strict>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

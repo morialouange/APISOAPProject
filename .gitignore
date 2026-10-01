@@ -1,0 +1,54 @@
+
+
+
+# ── Maven / sortie de compilation ────────────────────────────────────────────
+target/
+*.jar
+*.jar.original
+*.war
+*.ear
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+
+# ── Spring Boot ──────────────────────────────────────────────────────────────
+*.mv.db
+*.mv.db.old
+*.trace.db
+*.h2.db
+
+
+# ── Journalisation d'exécution ───────────────────────────────────────────────
+*.log
+*.err
+*.pdf
+logs/
+hs_err_pid*.log
+replay_pid*.log
+
+
+# ── Configurations locales (jamais de secrets en dépôt) ──────────────────────
+application-local.properties
+application-local.yml
+application-local.yaml
+*.env
+.env
+
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+
+# ── Fichiers temporaires / divers ────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.cache/
