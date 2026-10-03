@@ -18,13 +18,18 @@ INTERFACE HrServicePortType — les 2 operations declarees par le WSDL, avec
       - MARKETING    -> 200   3 employes,  6 competences
       - INCONNU      -> 500   soap:Fault, code metier DEPARTMENT_NOT_FOUND
   getAllDepartments
-      - (vide)       -> 200   IT / MARKETING / FINANCE avec les effectifs
+      - (vide)       -> 200   FINANCE (2) / IT (4) / MARKETING (3), ordre reel de la reponse
 
 ──────────────────────────────────────────────────────────────────────────────
 PRE-REQUIS : le legacy doit tourner sur le port 8080
 
     cd /d D:\Projet\ApiSOAPProject\legacy-hr-system
     java -jar target\legacy-hr-system-1.0.0.jar
+
+  REPONSES XML REELLES
+    responses/ contient les 4 reponses XML completes recues du Spring
+    Boot (HTTP 200/500), telles qu'exigees au livrable. Une par requete,
+    avec l'operation et le code HTTP en commentaire d'en-tete.
 
 ──────────────────────────────────────────────────────────────────────────────
 OUVRIR CETTE COLLECTION

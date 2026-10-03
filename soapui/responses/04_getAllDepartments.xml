@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Operation : getAllDepartments
+     Reponse reelle recue du Spring Boot - HTTP 200
+     Endpoint : http://localhost:8080/ws  |  WSDL : http://localhost:8080/ws/hr-service.wsdl -->
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><ns2:getAllDepartmentsResponse xmlns:ns2="http://upg.ac.rw/soap/hr"><ns2:departments><ns2:department><ns2:code>FINANCE</ns2:code><ns2:employeeCount>2</ns2:employeeCount></ns2:department><ns2:department><ns2:code>IT</ns2:code><ns2:employeeCount>4</ns2:employeeCount></ns2:department><ns2:department><ns2:code>MARKETING</ns2:code><ns2:employeeCount>3</ns2:employeeCount></ns2:department></ns2:departments></ns2:getAllDepartmentsResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>
